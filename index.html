@@ -182,6 +182,7 @@
     .mission-quote {
       font-size: 88px;
       color: var(--logo);
+      font-family: Georgia, 'Times New Roman', serif;
       font-weight: 900;
       line-height: .5;
       margin-bottom: 18px;
@@ -327,7 +328,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: url('images/snu-emblem.svg') center center / auto 75% no-repeat;
+      background: url('images/snu-emblem.svg') 95% center / auto 75% no-repeat;
       opacity: 0.08;
       pointer-events: none;
     }
@@ -764,6 +765,12 @@
         padding: 0 48px 20px;
         text-align: center;
       }
+      .equip-header { padding-top: 140px; }
+      .equip-header::before {
+        background-position: 50% top;
+        background-size: auto 120px;
+        opacity: 0.25;
+      }
       .equip-header .sec-sub { max-width: 500px; margin-left: auto; margin-right: auto; }
       .equip-tabs {
         max-width: 1100px; margin: 0 auto;
@@ -904,7 +911,7 @@
 <!-- ══════════ MISSION ══════════ -->
 <section id="mission" class="sec mission">
   <div class="fade-up">
-    <span class="mission-quote">"</span>
+    <span class="mission-quote">&ldquo;</span>
     <h2 class="mission-heading">오직 만성 질환 관리에만<br>집중합니다</h2>
     <p class="mission-desc">수술과 응급 진료를 과감히 덜어내고, 내과 질환 관리에만 집중하여 진료합니다.</p>
   </div>
@@ -1106,23 +1113,21 @@
   <div class="fade-up">
     <h2 class="sec-title">오시는 길</h2>
     <p class="sec-sub">남부터미널역(3호선) 도보 5분 거리</p>
-    <p class="location-addr">📍 서울 서초구 서초동 1430-3</p>
+    <p class="location-addr">📍 서울 서초구 서초중앙로2길 66 (서초동) 원빌딩 2층</p>
   </div>
   <div class="map-wrap fade-up d1">
     <img src="images/map-location.png" alt="병원 위치 지도">
   </div>
-  <!--
   <div class="map-btns fade-up d2">
-    <button class="map-btn btn-naver">
+    <a href="https://naver.me/5YonDEep" target="_blank" class="map-btn btn-naver">
       <img class="map-btn-icon" src="images/icon-naver-map.webp" alt="네이버지도">
       네이버지도
-    </button>
-    <button class="map-btn btn-kakao">
+    </a>
+    <a href="https://kko.to/cz-JgBdx4E" target="_blank" class="map-btn btn-kakao">
       <img class="map-btn-icon" src="images/icon-kakao-map.png" alt="카카오맵">
       카카오맵
-    </button>
+    </a>
   </div>
-  -->
   <div class="parking-box fade-up d3">
     🅿️ <strong>건물 앞 무료 주차 가능</strong><br>
     건물 앞 주차가 어려울 경우 인근 주차장으로 안내드릴 수 있으며, 주차비는 전액 지원됩니다.
@@ -1175,7 +1180,7 @@
 <footer>
   <div class="footer-left">
     <span class="footer-name">내과 관리전문 보탬동물병원</span>
-    서울 서초구 서초동 1430-3<br>
+    서울 서초구 서초중앙로2길 66 (서초동) 원빌딩 2층<br>
     진료 시간: 오전 10시 – 오후 8시 &nbsp;|&nbsp; 정기 휴무: 매주 수요일, 일요일
   </div>
   <div class="footer-right">
