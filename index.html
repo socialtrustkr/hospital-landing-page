@@ -9,17 +9,19 @@
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet" />
   <style>
     :root {
-      --blue: #4c9aff;
-      --blue-dark: #147aff;
-      --blue-light: #f1f7ff;
-      --blue-mid: #dfecff;
+      --blue: #C78272;
+      --blue-dark: #A6655A;
+      --blue-light: #FEF8F6;
+      --blue-mid: #F5E0DB;
       --text: #1c1e25;
       --text-gray: #505050;
       --text-light: #696969;
       --border: #e8e8e8;
       --green: #3ab449;
+      --logo: #C78272;
+      --logo-light: #FEF8F6;
       --kakao: #fae100;
-      --shadow: 0 2px 16px rgba(76,154,255,0.10);
+      --shadow: 0 2px 16px rgba(199,130,114,0.10);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -49,8 +51,9 @@
     ══════════════════════════════ */
     .hero {
       position: relative;
-      min-height: 680px;
-      background: #fff;
+      min-height: auto;
+      background: linear-gradient(to top, var(--blue-mid) 0%, var(--blue-light) 30%, #fff 55%);
+      padding-bottom: 48px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -58,6 +61,7 @@
     }
 
     .hero-bg {
+      display: none;
       position: absolute;
       bottom: 0; left: -4px; right: -4px;
       height: 520px;
@@ -98,11 +102,13 @@
 
     .hero-title {
       font-size: 46px;
-      font-weight: 900;
-      line-height: 1.25;
+      font-weight: 700;
+      line-height: 1.15;
       animation: fadeUp .8s ease both;
     }
-    .hero-title .accent { color: var(--blue-dark); }
+    .hero-logo { width: 220px; height: 220px; margin-bottom: -10px; }
+    .hero-title .accent { color: var(--logo); }
+    .hero-title .accent-sub { color: #DBAD9F; font-size: 0.48em; font-weight: 600; display: block; line-height: 1; margin-bottom: 8px; letter-spacing: 4px; }
 
     .hero-sub {
       font-size: 17px;
@@ -130,12 +136,16 @@
       cursor: pointer;
       transition: all .2s;
       border: 2px solid var(--blue);
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      box-sizing: border-box;
     }
     .btn-primary {
       background: var(--blue);
       color: #fff;
     }
-    .btn-primary:hover { background: var(--blue-dark); border-color: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(20,122,255,.3); }
+    .btn-primary:hover { background: var(--blue-dark); border-color: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(199,130,114,.3); }
     .btn-outline {
       background: rgba(255,255,255,.92);
       color: var(--blue);
@@ -171,7 +181,7 @@
 
     .mission-quote {
       font-size: 88px;
-      color: var(--blue);
+      color: var(--logo);
       font-weight: 900;
       line-height: .5;
       margin-bottom: 18px;
@@ -181,7 +191,7 @@
       font-size: 30px;
       font-weight: 800;
       line-height: 1.3;
-    }
+          }
     .mission-desc {
       font-size: 15px;
       color: var(--text-gray);
@@ -221,7 +231,7 @@
     /* ══════════════════════════════
        PRICE
     ══════════════════════════════ */
-    .price { background: #f7faff; }
+    .price { background: var(--blue-light); }
 
     .price-card {
       margin-top: 28px;
@@ -237,41 +247,70 @@
     .price-row {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
     .price-box {
       flex: 1;
+      min-width: 0;
       background: var(--blue-light);
       border-radius: 12px;
-      padding: 14px 10px;
+      padding: 14px 8px;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
     .price-box.highlight {
       background: var(--blue);
     }
     .price-box.highlight .price-amt { color: #fff; }
-    .price-box.highlight .price-who { color: rgba(255,255,255,.75); }
+    .price-box.highlight .price-who { color: rgba(255,255,255,.8); }
 
-    .price-amt { font-size: 22px; font-weight: 900; color: var(--text); }
-    .price-who { font-size: 12px; color: var(--text-light); margin-top: 4px; }
+    .price-amt { font-size: 15px; font-weight: 900; color: var(--text); white-space: nowrap; }
+    .price-who { font-size: 10px; color: var(--text-light); margin-top: 3px; white-space: nowrap; }
 
     .price-arrow {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 3px;
       flex-shrink: 0;
+      width: 80px;
+      height: 38px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-right: 12px;
     }
-    .price-arrow-line { font-size: 18px; color: #aaa; }
-    .price-arrow-pct { font-size: 20px; font-weight: 900; color: var(--blue-dark); }
+    /* arrow body (shaft + head combined) */
+    .price-arrow-body {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, var(--blue), var(--blue-dark));
+      clip-path: polygon(0 25%, 60% 25%, 60% 0%, 100% 50%, 60% 100%, 60% 75%, 0 75%);
+    }
+    .price-arrow-pct {
+      position: relative;
+      z-index: 1;
+      font-size: 11px;
+      font-weight: 900;
+      color: #fff;
+      text-align: center;
+    }
 
     .price-note {
       margin-top: 18px;
-      padding-top: 16px;
-      border-top: 1px solid var(--border);
+      padding: 18px;
+      background: var(--blue-light);
+      border-radius: 12px;
       font-size: 12px;
       color: var(--text-light);
       line-height: 1.7;
+    }
+    .price-note-list {
+      list-style: disc;
+      padding-left: 18px;
+      margin: 0;
+    }
+    .price-note-list li {
+      margin-bottom: 2px;
     }
 
     /* ══════════════════════════════
@@ -335,29 +374,34 @@
       gap: 14px;
       padding: 18px 24px 4px;
       overflow-x: auto;
-      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
     }
     .equip-panel::-webkit-scrollbar { display: none; }
     .equip-panel.active { display: flex; }
+    .equip-panel::after {
+      content: '';
+      flex-shrink: 0;
+      width: 10px;
+    }
 
     .equip-card {
       flex-shrink: 0;
-      width: 210px;
+      width: 268px;
       background: #fff;
+      scroll-snap-align: start;
       border-radius: 14px;
       box-shadow: 0 1px 10px rgba(0,0,0,.08);
       overflow: hidden;
-      scroll-snap-align: start;
       transition: transform .25s, box-shadow .25s;
     }
     .equip-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(76,154,255,.18);
+      box-shadow: 0 8px 24px rgba(199,130,114,.18);
     }
     .equip-card img {
       width: 100%;
-      height: 170px;
+      height: 268px;
       object-fit: cover;
       background: #f5f5f5;
       display: block;
@@ -370,7 +414,7 @@
     /* ══════════════════════════════
        FACILITIES CAROUSEL
     ══════════════════════════════ */
-    .facilities { background: #f7faff; padding: 56px 0 48px; }
+    .facilities { background: var(--blue-light); padding: 56px 0 48px; }
     .facilities-header { padding: 0 24px 24px; }
 
     .carousel-wrap { position: relative; overflow: hidden; }
@@ -417,7 +461,7 @@
     /* ══════════════════════════════
        LOCATION
     ══════════════════════════════ */
-    .location { background: #f7faff; }
+    .location { background: var(--blue-light); }
 
     .location-addr {
       font-size: 14px;
@@ -474,7 +518,7 @@
        CTA BANNER
     ══════════════════════════════ */
     .cta-banner {
-      background: linear-gradient(140deg, #1050c8, var(--blue-dark) 55%, var(--blue));
+      background: linear-gradient(140deg, #8B5A4E, var(--blue-dark) 55%, var(--blue));
       padding: 52px 24px;
       text-align: center;
       color: #fff;
@@ -495,6 +539,10 @@
       font-weight: 700;
       cursor: pointer;
       transition: transform .2s, box-shadow .2s;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      box-sizing: border-box;
     }
     .cta-btn-white:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.2); }
 
@@ -582,8 +630,8 @@
 
     /* Pulse animation for CTA */
     @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(76,154,255,.4); }
-      50%       { box-shadow: 0 0 0 10px rgba(76,154,255,0); }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(199,130,114,.4); }
+      50%       { box-shadow: 0 0 0 10px rgba(199,130,114,0); }
     }
     .btn-primary { animation: pulse 2.5s infinite; }
     .btn-primary:hover { animation: none; }
@@ -629,14 +677,15 @@
         text-decoration: none; transition: color .2s;
       }
       .nav-links a:hover { color: var(--blue-dark); }
-      .nav-cta {
+      .nav-links a.nav-cta {
         padding: 8px 22px;
         background: var(--blue); color: #fff;
         border: none; border-radius: 100px;
         font-size: 14px; font-weight: 700;
         cursor: pointer; transition: background .2s, transform .15s;
+        text-decoration: none; display: inline-block;
       }
-      .nav-cta:hover { background: var(--blue-dark); transform: translateY(-1px); }
+      .nav-links a.nav-cta:hover { background: var(--blue-dark); color: #fff; transform: translateY(-1px); }
 
       /* Body */
       body { max-width: none; }
@@ -658,9 +707,10 @@
       .mission-warn { max-width: 600px; margin-left: auto; margin-right: auto; }
 
       /* Hero: 2-column */
-      .hero { min-height: 600px; align-items: stretch; }
+      .hero { min-height: 600px; align-items: stretch; background: #fff; padding-bottom: 0; }
 
       .hero-bg {
+        display: block;
         left: 50%; right: 0;
         top: 0; bottom: 0;
         height: auto;
@@ -701,6 +751,10 @@
 
       /* Price: center card */
       .price-card { max-width: 560px; margin-left: auto; margin-right: auto; }
+      .price-arrow { width: 150px; height: 56px; }
+      .price-arrow-pct { font-size: 16px; }
+      .price-amt { font-size: 18px; }
+      .price-who { font-size: 12px; }
 
       /* Equipment */
       .equipment { padding: 64px 0; }
@@ -731,7 +785,7 @@
         gap: 20px;
         justify-content: center;
       }
-      .equip-card { width: calc(50% - 10px); flex-shrink: 0; }
+      .equip-card { width: 268px; flex-shrink: 0; }
 
       /* Facilities */
       .facilities { padding: 64px 0 56px; }
@@ -800,8 +854,8 @@
 
     /* Wide desktop ≥ 1024px */
     @media (min-width: 1024px) {
-      .equip-card { width: calc(25% - 15px); }
-      .equip-card img { height: 180px; }
+      .equip-card { width: 268px; flex-shrink: 0; }
+      .equip-card img { height: 268px; }
       .carousel-slide img { height: 480px; }
       .hero-title { font-size: 52px; }
     }
@@ -812,13 +866,13 @@
 <!-- ══════════ DESKTOP NAV ══════════ -->
 <nav class="desktop-nav">
   <div class="nav-inner">
-    <span class="nav-logo">🐾 보탬 동물병원</span>
+    <span class="nav-logo">보탬 동물병원</span>
     <div class="nav-links">
       <a href="#mission">전문 분야</a>
       <a href="#price">진료비</a>
       <a href="#hours">진료 안내</a>
       <a href="#location">오시는 길</a>
-      <button class="nav-cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">예약하기</button>
+      <a href="tel:010-6415-1175" class="nav-cta" onclick="return handleCall(event)">예약하기</a>
     </div>
   </div>
 </nav>
@@ -828,17 +882,17 @@
   <div class="hero-bg"></div>
   <div class="hero-inner">
     <div class="hero-text-wrap">
+      <img src="images/logo.png" alt="보탬 동물병원 로고" class="hero-logo">
       <h1 class="hero-title">
-        <span class="accent">내과 관리 전문</span><br>
-        보탬 동물병원
+        <span class="accent-sub">내과 관리 전문</span>
+        <span class="accent">보탬</span> 동물병원
       </h1>
       <p class="hero-sub">
         내분비(쿠싱, 당뇨, 갑상선), 심장, 신장 질환<br>
         정기 검진 전문 동물병원
       </p>
       <div class="hero-btns">
-        <button class="btn-outline">가격 문의</button>
-        <button class="btn-primary">예약하기</button>
+        <a href="tel:010-6415-1175" class="btn-primary" onclick="return handleCall(event)">예약하기</a>
       </div>
       <p class="hero-notice">
         ※ 예약필수 — 예약 없이 방문하실 경우 대기 시간이 길어지거나 당일 진료가 어려울 수 있으니 예약 후 내원 부탁드립니다.
@@ -852,7 +906,7 @@
   <div class="fade-up">
     <span class="mission-quote">"</span>
     <h2 class="mission-heading">오직 만성 질환 관리에만<br>집중합니다</h2>
-    <p class="mission-desc">수술과 응급 진료를 과감히 덜어내어, 내과 질환 관리의 전문성과 합리적인 가격을 실현했습니다.</p>
+    <p class="mission-desc">수술과 응급 진료를 과감히 덜어내고, 내과 질환 관리에만 집중하여 진료합니다.</p>
   </div>
   <div class="mission-scope fade-up d2">
     <span class="scope-tag">진료 범위</span>
@@ -860,14 +914,28 @@
     <p class="scope-detail">*내분비 질환(쿠싱, 당뇨 등), 심장 질환, 신장 질환 외 다수</p>
   </div>
   <div class="mission-warn fade-up d3">
-    ⚠️ 만성 질환 정기 검진 특화 동물병원으로, <strong>수술·야간 진료는 제공하지 않습니다.</strong>
+    ⚠️ 내과 관리 전문 병원으로, <strong>수술·응급 진료는 연계된 병원으로 안내드립니다.</strong>
+  </div>
+  <div class="faq-list" style="margin-top:20px;">
+    <div class="faq-item fade-up d4">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        <span>Q. 수술·응급·입원이 필요해 다른 병원에 방문할 땐 어떻게 하나요?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          수술·응급 진료가 필요한 경우 연계된 병원으로 리퍼 안내드립니다. 타 병원 방문을 희망하실 경우, 방문하시는 병원으로 상세한 진료 내역을 보내드립니다. 신청 즉시 발송되며, 365일, 24시간 신청 가능합니다.
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- ══════════ PRICE ══════════ -->
 <section id="price" class="sec price">
   <div class="fade-up">
-    <h2 class="sec-title">만성 내과 진료비를<br>최대 <span style="color:var(--blue-dark)">40%</span> 낮췄습니다</h2>
+    <h2 class="sec-title">동물병원 진료비를<br><span style="color:var(--blue-dark)">30%</span> 낮췄습니다</h2>
+    <p class="sec-sub">내과 질환 관리에만 집중함으로써, 합리적인 가격을 실현했습니다.</p>
   </div>
   <div class="price-card fade-up d1">
     <p class="price-label-sm">실제 진료비 사례</p>
@@ -879,17 +947,22 @@
         <div class="price-who">타 동물병원(1차)</div>
       </div>
       <div class="price-arrow">
-        <span class="price-arrow-line">→</span>
-        <span class="price-arrow-pct">-40%</span>
+        <div class="price-arrow-body"></div>
+        <span class="price-arrow-pct">-30%</span>
       </div>
       <div class="price-box highlight">
-        <div class="price-amt">월 19만원</div>
-        <div class="price-who">보탬 동물병원</div>
+        <div class="price-amt">월 22만원</div>
+        <div class="price-who">케어동물병원</div>
       </div>
     </div>
     <div class="price-note">
-      동일한 검사 및 약 처방 시 가격 비교임<br>
-      혈청 화학 검사 · 부신 호르몬 검사 · 덱사메타손 억제 검사(8시간 LDDST) · 내복약 30일치(트릴로스탄, 실리마린 포함) 처방
+      <p style="font-weight:600; color:var(--text); font-size:13px; margin-bottom:10px;">동일한 검사 및 약 처방 시 가격 비교임</p>
+      <ul class="price-note-list">
+        <li>혈청 화학 검사</li>
+        <li>부신 호르몬 검사</li>
+        <li>덱사메타손 억제 검사(8시간 LDDST)</li>
+        <li>내복약 30일치(트릴로스탄, 실리마린 포함) 처방</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -898,7 +971,7 @@
 <section id="equipment" class="equipment">
   <div class="equip-header fade-up">
     <h2 class="sec-title">검증된 첨단 장비와<br>분야별 전문 의료진</h2>
-    <p class="sec-sub">서울대학교 출신을 포함한 각 분야<br>전문 의료진이 최상의 진료를 약속합니다.</p>
+    <p class="sec-sub">서울대학교 출신을 포함한 내과 전문<br>의료진이 최상의 진료를 약속합니다.</p>
   </div>
 
   <div class="equip-tabs">
@@ -917,28 +990,28 @@
       <img src="images/equip-bionote-v200.png" alt="Bionote V200">
       <div class="equip-card-body">
         <div class="equip-card-name">Bionote V200</div>
-        <div class="equip-card-desc">형광면역분석 방식으로 <strong>심장, 염증, 췌장, 호르몬</strong>뿐 아니라 <strong>30여 가지 이상</strong>의 바이오마커를 원내에서 즉시 측정합니다.</div>
+        <div class="equip-card-desc">형광면역분석 방식을 통해 높은 정확도가 입증된 정밀 진단 장비입니다. <strong>심장, 염증, 췌장, 호르몬</strong>뿐만 아니라 종양, 항체가, 신장, 응고계 등 <strong>30여 가지 이상</strong>의 주요 바이오마커를 원내에서 즉시 측정할 수 있습니다. 외부 의뢰 없이 신속하고 객관적인 데이터를 바탕으로 응급 상황부터 만성 질환까지 진단 결과를 제공합니다.</div>
       </div>
     </div>
     <div class="equip-card">
       <img src="images/equip-prokan-pe6800.png" alt="Prokan PE-6800">
       <div class="equip-card-body">
         <div class="equip-card-name">Prokan PE-6800</div>
-        <div class="equip-card-desc"><strong>3-Part 자동 혈구 분석</strong>으로 적혈구, 백혈구, 혈소판을 수치화. <strong>적은 양의 혈액</strong>만으로 빈혈·염증을 신속하게 판독합니다.</div>
+        <div class="equip-card-desc"><strong>3-Part 자동 혈구 분석</strong> 시스템을 통해 기초 건강 상태를 정밀하게 파악하는 진단 장비입니다. 적혈구, 백혈구, 혈소판 등 혈액 내 주요 세포 성분을 수치화하여 빈혈, 염증 등을 신속하게 판독합니다. <strong>적은 양의 혈액</strong>만으로도 정확한 검사가 가능하여 환자의 부담을 줄이며, 객관적인 수치 데이터를 바탕으로 체계적인 진단 결과를 제공합니다.</div>
       </div>
     </div>
     <div class="equip-card">
       <img src="images/equip-pointcare-v3.png" alt="Pointcare V3">
       <div class="equip-card-body">
         <div class="equip-card-name">Pointcare V3</div>
-        <div class="equip-card-desc"><strong>소량의 전혈</strong>만으로 신부전, 간 질환, 당뇨 등을 원내 즉시 진단. 단 <strong>10분 내외</strong>에 포괄적인 대사 프로필을 확인합니다.</div>
+        <div class="equip-card-desc">원심 분리 과정 없이 <strong>소량의 전혈</strong>만으로 신부전, 간 질환, 당뇨 등 주요 장기 기능을 원내에서 즉시 진단할 수 있는 고정밀 생화학 분석 장비입니다. 단 <strong>10분 내외</strong>의 짧은 검사 시간으로 간, 신장 수치는 물론 전해질 상태까지 포괄적인 대사 프로필을 한 번에 확인할 수 있습니다. 마취 전 안전 검사부터 만성 질환 관리까지 정확하고 신속한 의료 결정을 지원합니다.</div>
       </div>
     </div>
     <div class="equip-card">
       <img src="images/equip-vetmate.png" alt="VetMate">
       <div class="equip-card-body">
         <div class="equip-card-name">VetMate</div>
-        <div class="equip-card-desc">반려동물 전용 <strong>당뇨 관리 특화</strong> 혈당 측정기. <strong>극소량의 혈액</strong>만으로 수 초 내에 정확한 혈당 수치를 확인합니다.</div>
+        <div class="equip-card-desc">반려동물 전용 혈액 분석 시스템을 통해 <strong>당뇨 관리</strong>의 정확도를 극대화한 정밀 혈당 측정 장비입니다. 개와 고양이 각각의 혈액 특성에 맞춘 전용 코드를 적용하여 오차 범위를 최소화한 결과값을 제공합니다. <strong>극소량의 혈액</strong>만으로도 수 초 내에 혈당 수치를 즉시 확인할 수 있어 환자의 통증과 스트레스를 덜어줍니다.</div>
       </div>
     </div>
   </div>
@@ -949,14 +1022,14 @@
       <img src="images/equip-poskom-xray.png" alt="POSKOM X-ray">
       <div class="equip-card-body">
         <div class="equip-card-name">POSKOM X-ray</div>
-        <div class="equip-card-desc"><strong>500mA급</strong> 고출력으로 대형견도 선명하게 포착. <strong>17×17인치 대면적 디텍터</strong>로 신체 모든 부위를 사각지대 없이 구현합니다.</div>
+        <div class="equip-card-desc"><strong>500mA급</strong> 고출력과 포스콤의 정밀 제어 기술이 결합되어 대형견과 두꺼운 부위도 흔들림 없이 선명하게 포착합니다. <strong>17×17인치 대면적 디텍터</strong>를 통해 신체 모든 부위를 사각지대 없이 세밀하게 구현하며 촬영 시간을 단축합니다. 미세 골절부터 흉/복부 질환까지 신속하고 객관적인 고해상도 데이터를 바탕으로 정확한 진단을 지원합니다.</div>
       </div>
     </div>
     <div class="equip-card">
       <img src="images/equip-sonoscape-ultrasound.png" alt="SonoScape Ultrasound">
       <div class="equip-card-body">
         <div class="equip-card-name">SonoScape Ultrasound</div>
-        <div class="equip-card-desc">고성능 이미징으로 <strong>장기 구조와 혈류 상태</strong>를 실시간 정밀 관찰. 복부 장기 내 작은 결절·초기 병변을 예리하게 식별합니다.</div>
+        <div class="equip-card-desc">세계적인 영상 진단 솔루션인 SonoScape의 고성능 이미징 기술을 통해 <strong>장기 구조와 혈류 상태</strong>를 실시간으로 정밀하게 관찰합니다. 고해상도 도플러 심장의 움직임과 미세한 혈관 흐름까지 놓치지 않고 포착하며, 노이즈를 최소화한 선명한 영상으로 복부 장기 내 작은 결절이나 초기 병변을 예리하게 식별합니다.</div>
       </div>
     </div>
   </div>
@@ -967,35 +1040,35 @@
       <img src="images/equip-blood-pressure.png" alt="도플러 혈압계">
       <div class="equip-card-body">
         <div class="equip-card-name">도플러 혈압계</div>
-        <div class="equip-card-desc">음파로 <strong>혈압을 가장 정밀하게 측정</strong>. 소형견·고양이의 혈압까지 정확하게 측정하며 마취 중 실시간 모니터링이 가능합니다.</div>
+        <div class="equip-card-desc">미세한 혈류 파동을 음파로 증폭하여 반려동물의 <strong>혈압을 가장 정밀하게 측정</strong>하는 진단 장비입니다. 일반적인 압력 방식으로는 측정이 까다로운 소형견이나 고양이의 혈압까지 실시간 청취를 통해 객관적이고 정확한 수치를 산출합니다. 마취 중 실시간 상태 모니터링은 물론 고혈압, 심장 질환, 신장 질환 등 순환계 관리가 필요한 환자들에게 신속하고 통증 없는 검사 환경을 제공합니다.</div>
       </div>
     </div>
     <div class="equip-card">
       <img src="images/equip-microscope.png" alt="현미경">
       <div class="equip-card-body">
         <div class="equip-card-name">현미경</div>
-        <div class="equip-card-desc">고해상도 광학 렌즈로 미세 조직·세포를 정밀 관찰. 피부, 귀, 소변, 분변 등 <strong>검체를 즉석에서 확대 분석</strong>합니다.</div>
+        <div class="equip-card-desc">고해상도 광학 렌즈를 통해 육안으로 확인하기 어려운 미세 조직과 세포를 정밀하게 관찰하는 필수 진단 장비입니다. 피부 소양증, 귀 질환, 소변 내 결정, 분변 내 기생충 등 다양한 임상 <strong>검체를 즉석에서 확대 분석</strong>하여 질병의 원인을 명확히 규명합니다. 외부 의뢰 없이 원내 검사만으로도 염증 세포와 세균의 양상을 실시간으로 파악할 수 있습니다.</div>
       </div>
     </div>
     <div class="equip-card">
       <img src="images/equip-tonometer.png" alt="자동 안압계">
       <div class="equip-card-body">
         <div class="equip-card-name">자동 안압계</div>
-        <div class="equip-card-desc">리바운드 방식으로 <strong>안압을 정밀 측정</strong>. 녹내장 등 안과 질환 조기 발견. <strong>국소 마취 없이</strong>도 신속한 측정이 가능합니다.</div>
+        <div class="equip-card-desc">안구 표면에 미세하게 접촉하여 안구 내부의 압력을 정밀하게 측정하는 첨단 리바운드 방식의 진단 장비입니다. 녹내장, 포도막염 등 실명으로 이어질 수 있는 주요 안과 질환을 조기에 발견하고 <strong>안압</strong>의 변화를 실시간으로 모니터링합니다. 별도의 <strong>국소 마취 없이</strong>도 신속하게 측정이 가능합니다.</div>
       </div>
     </div>
     <div class="equip-card">
       <img src="images/equip-otoscope.png" alt="검이경">
       <div class="equip-card-body">
         <div class="equip-card-name">검이경</div>
-        <div class="equip-card-desc">반려동물의 <strong>좁고 깊은 L자형 외이도</strong>를 고해상도로 정밀 관찰. 고막 상태, 외이염, 귀 진드기 등을 즉각 판독합니다.</div>
+        <div class="equip-card-desc">반려동물의 <strong>좁고 깊은 L자형 외이도</strong> 구조를 고해상도 렌즈와 밝은 광원을 통해 정밀하게 관찰하는 장비입니다. 육안으로는 확인하기 어려운 고막의 상태, 외이염의 진행 정도, 이물질 유무 및 귀 진드기 감염 등을 즉각적으로 판독합니다.</div>
       </div>
     </div>
     <div class="equip-card">
       <img src="images/equip-ophthalmoscope.png" alt="검안경">
       <div class="equip-card-body">
         <div class="equip-card-name">검안경</div>
-        <div class="equip-card-desc"><strong>안구 내부를 고배율로 정밀 조사</strong>. 망막, 시신경 병변을 직접 관찰하여 백내장·녹내장 등 초기 징후를 신속하게 포착합니다.</div>
+        <div class="equip-card-desc"><strong>안구 내부 구조를 고배율로 정밀 조사</strong>하여 눈 건강 상태를 진단하는 전문 안과 장비입니다. 망막, 시신경, 유리체 등 안구 심부의 병변을 직접 관찰하여 백내장, 녹내장, 망막 박리 등 주요 안과 질환의 초기 징후를 신속하게 포착합니다.</div>
       </div>
     </div>
   </div>
@@ -1006,18 +1079,9 @@
   <div class="facilities-header fade-up">
     <h2 class="sec-title">병원 시설</h2>
   </div>
-  <div class="carousel-wrap">
-    <button class="car-arr car-prev" id="carPrev">&#8592;</button>
-    <button class="car-arr car-next" id="carNext">&#8594;</button>
-    <div class="carousel-track" id="carTrack">
-      <div class="carousel-slide"><img src="images/facility-1.png" alt="병원 시설 1"></div>
-      <div class="carousel-slide"><img src="images/facility-2.png" alt="병원 시설 2"></div>
-      <div class="carousel-slide"><img src="images/facility-3.png" alt="병원 시설 3"></div>
-      <div class="carousel-slide"><img src="images/facility-4.png" alt="병원 시설 4"></div>
-      <div class="carousel-slide"><img src="images/facility-5.png" alt="병원 시설 5"></div>
-    </div>
+  <div class="fade-up" style="max-width:1100px; margin:0 auto; padding:0 24px;">
+    <img src="images/facility.png" alt="병원 시설" style="width:100%; display:block; border-radius:14px;">
   </div>
-  <div class="carousel-dots" id="carDots"></div>
 </section>
 
 <!-- ══════════ HOURS ══════════ -->
@@ -1027,11 +1091,11 @@
     <div class="hours-grid">
       <div class="hours-card">
         <div class="hours-card-lbl">진료 시간</div>
-        <div class="hours-card-val">오전 10시 —<br>오후 8시</div>
+        <div class="hours-card-val">오전 10시 –<br>오후 8시</div>
       </div>
       <div class="hours-card">
         <div class="hours-card-lbl">정기 휴무</div>
-        <div class="hours-card-val">수요일<br>일요일</div>
+        <div class="hours-card-val">매주 수요일<br>매주 일요일</div>
       </div>
     </div>
   </div>
@@ -1047,6 +1111,7 @@
   <div class="map-wrap fade-up d1">
     <img src="images/map-location.png" alt="병원 위치 지도">
   </div>
+  <!--
   <div class="map-btns fade-up d2">
     <button class="map-btn btn-naver">
       <img class="map-btn-icon" src="images/icon-naver-map.webp" alt="네이버지도">
@@ -1057,6 +1122,7 @@
       카카오맵
     </button>
   </div>
+  -->
   <div class="parking-box fade-up d3">
     🅿️ <strong>건물 앞 무료 주차 가능</strong><br>
     건물 앞 주차가 어려울 경우 인근 주차장으로 안내드릴 수 있으며, 주차비는 전액 지원됩니다.
@@ -1068,8 +1134,7 @@
   <h2 class="fade-up">지금 바로 예약하세요</h2>
   <p class="fade-up d1">만성 내과 질환 관리를 위한<br>전문적이고 합리적인 진료를 경험해 보세요</p>
   <div class="cta-btns fade-up d2">
-    <button class="cta-btn-white">예약하기</button>
-    <button class="cta-btn-ghost">가격 문의</button>
+    <a href="tel:010-6415-1175" class="cta-btn-white" onclick="return handleCall(event)">예약하기</a>
   </div>
   <p class="cta-notice fade-up d3">※ 예약 없이 방문하실 경우 대기 시간이 길어질 수 있습니다</p>
 </section>
@@ -1098,7 +1163,7 @@
       </div>
       <div class="faq-a">
         <div class="faq-a-inner">
-          카톡으로 방문하시는 동물병원 이름을 전달해주시면, 저희 병원에서 받은 모든 진료 내역을 상세히 정리해 즉시 보내드립니다. 신청 후 10분 내에 자동으로 발송되며, 365일 24시간 신청 가능합니다. 눈치 보지 말고 신청하세요!
+          수술·응급 진료가 필요한 경우 연계된 병원으로 리퍼 안내드립니다. 타 병원 방문을 희망하실 경우, 방문하시는 병원으로 상세한 진료 내역을 보내드립니다. 신청 즉시 발송되며, 365일, 24시간 신청 가능합니다.
         </div>
       </div>
     </div>
@@ -1109,9 +1174,9 @@
 <!-- ══════════ FOOTER ══════════ -->
 <footer>
   <div class="footer-left">
-    <span class="footer-name">보탬 동물병원</span>
+    <span class="footer-name">내과 관리전문 보탬동물병원</span>
     서울 서초구 서초동 1430-3<br>
-    진료 시간: 오전 10시 — 오후 8시 &nbsp;|&nbsp; 정기 휴무: 수요일, 일요일
+    진료 시간: 오전 10시 – 오후 8시 &nbsp;|&nbsp; 정기 휴무: 매주 수요일, 일요일
   </div>
   <div class="footer-right">
     내분비(쿠싱, 당뇨, 갑상선)<br>
@@ -1120,7 +1185,28 @@
   </div>
 </footer>
 
+<!-- Phone call popup for desktop -->
+<div id="phonePopup" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,.45); align-items:center; justify-content:center;">
+  <div style="background:#fff; border-radius:18px; padding:32px 36px; text-align:center; max-width:320px; box-shadow:0 12px 40px rgba(0,0,0,.2);">
+    <p style="font-size:14px; color:#666; margin-bottom:6px;">전화 예약</p>
+    <p style="font-size:24px; font-weight:900; color:#1a1a1a; margin-bottom:20px; letter-spacing:0.5px;">010-6415-1175</p>
+    <button onclick="document.getElementById('phonePopup').style.display='none'" style="padding:10px 32px; background:var(--blue); color:#fff; border:none; border-radius:100px; font-size:15px; font-weight:700; cursor:pointer;">닫기</button>
+  </div>
+</div>
+
 <script>
+  function handleCall(e) {
+    if (window.innerWidth >= 768 && !('ontouchstart' in window)) {
+      e.preventDefault();
+      document.getElementById('phonePopup').style.display = 'flex';
+      return false;
+    }
+    return true;
+  }
+  document.getElementById('phonePopup').addEventListener('click', function(e) {
+    if (e.target === this) this.style.display = 'none';
+  });
+
   /* ── Scroll animations ── */
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
