@@ -108,7 +108,7 @@
     }
     .hero-logo { width: 220px; height: 220px; margin-bottom: -10px; }
     .hero-title .accent { color: var(--logo); }
-    .hero-title .accent-sub { color: #DBAD9F; font-size: 0.48em; font-weight: 600; display: block; line-height: 1; margin-bottom: 8px; letter-spacing: 4px; }
+    .hero-title .accent-sub { color: var(--blue-dark); font-size: 0.75em; font-weight: 600; display: block; line-height: 1; margin-bottom: 10px; letter-spacing: 2px; }
 
     .hero-sub {
       font-size: 17px;
@@ -255,11 +255,12 @@
       min-width: 0;
       background: var(--blue-light);
       border-radius: 12px;
-      padding: 14px 8px;
+      padding: 14px 6px;
       text-align: center;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      overflow: hidden;
     }
     .price-box.highlight {
       background: var(--blue);
@@ -267,7 +268,7 @@
     .price-box.highlight .price-amt { color: #fff; }
     .price-box.highlight .price-who { color: rgba(255,255,255,.8); }
 
-    .price-amt { font-size: 15px; font-weight: 900; color: var(--text); white-space: nowrap; }
+    .price-amt { font-size: 15px; font-weight: 900; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .price-who { font-size: 10px; color: var(--text-light); margin-top: 3px; white-space: nowrap; }
 
     .price-arrow {
@@ -648,6 +649,14 @@
     ══════════════════════════════ */
     .car-arr { display: none; }
 
+    /* ── Small screen price fix ── */
+    @media (max-width: 360px) {
+      .price-amt { font-size: 13px; }
+      .price-arrow { width: 60px; }
+      .price-arrow-pct { font-size: 10px; }
+      .price-row { gap: 5px; }
+    }
+
     /* ══════════════════════════════
        DESKTOP RESPONSIVE ≥ 768px
     ══════════════════════════════ */
@@ -927,7 +936,7 @@
   <div class="faq-list" style="margin-top:20px;">
     <div class="faq-item fade-up d4">
       <div class="faq-q" onclick="toggleFaq(this)">
-        <span>Q. 수술·응급·입원이 필요해 다른 병원에 방문할 땐 어떻게 하나요?</span>
+        <span>Q. 수술·응급이 필요해 다른 병원에 방문할 땐 어떻게 하나요?</span>
         <div class="faq-icon">+</div>
       </div>
       <div class="faq-a">
@@ -1124,7 +1133,7 @@
       <img class="map-btn-icon" src="images/icon-naver-map.webp" alt="네이버지도">
       네이버지도
     </a>
-    <a href="https://kko.to/cz-JgBdx4E" target="_blank" class="map-btn btn-kakao">
+    <a href="https://kko.to/zVVXPH6NxE" target="_blank" class="map-btn btn-kakao">
       <img class="map-btn-icon" src="images/icon-kakao-map.png" alt="카카오맵">
       카카오맵
     </a>
@@ -1164,7 +1173,7 @@
 
     <div class="faq-item fade-up d2">
       <div class="faq-q" onclick="toggleFaq(this)">
-        <span>Q. 수술·응급·입원이 필요해 다른 병원에 방문할 땐 어떻게 하나요?</span>
+        <span>Q. 수술·응급이 필요해 다른 병원에 방문할 땐 어떻게 하나요?</span>
         <div class="faq-icon">+</div>
       </div>
       <div class="faq-a">
