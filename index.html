@@ -1203,26 +1203,43 @@
   </div>
 </footer>
 
-<!-- Phone call popup for desktop -->
-<div id="phonePopup" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,.45); align-items:center; justify-content:center;">
-  <div style="background:#fff; border-radius:18px; padding:32px 36px; text-align:center; max-width:320px; box-shadow:0 12px 40px rgba(0,0,0,.2);">
-    <p style="font-size:14px; color:#666; margin-bottom:6px;">전화 예약</p>
-    <p style="font-size:24px; font-weight:900; color:#1a1a1a; margin-bottom:20px; letter-spacing:0.5px;">010-6415-1175</p>
-    <button onclick="document.getElementById('phonePopup').style.display='none'" style="padding:10px 32px; background:var(--blue); color:#fff; border:none; border-radius:100px; font-size:15px; font-weight:700; cursor:pointer;">닫기</button>
+<!-- Reservation method popup -->
+<div id="reservePopup" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,.45); align-items:center; justify-content:center;">
+  <div style="background:#fff; border-radius:18px; padding:32px 28px 28px; text-align:center; max-width:320px; width:90%; box-shadow:0 12px 40px rgba(0,0,0,.2);">
+    <p style="font-size:18px; font-weight:800; color:#1a1a1a; margin-bottom:24px;">예약 방법을 선택해주세요</p>
+    <a href="http://pf.kakao.com/_NxhyuX" target="_blank" rel="noopener" id="kakaoBtn" style="display:flex; align-items:center; justify-content:center; gap:10px; width:100%; padding:14px; background:var(--kakao); color:#3C1E1E; border:none; border-radius:12px; font-size:16px; font-weight:700; cursor:pointer; text-decoration:none; margin-bottom:10px;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 256 256"><path fill="#3C1E1E" d="M128 36C70.6 36 24 72.7 24 118c0 29.3 19.5 55 48.8 69.6l-10 37.2c-.8 3 2.7 5.4 5.3 3.6l44.3-29.5c5.1.7 10.3 1.1 15.6 1.1 57.4 0 104-36.7 104-82S185.4 36 128 36z"/></svg>
+      카카오톡 상담
+    </a>
+    <div id="phoneSection">
+      <a href="tel:010-6415-1175" id="phoneBtnLink" style="display:flex; align-items:center; justify-content:center; gap:10px; width:100%; padding:14px; background:var(--blue); color:#fff; border:none; border-radius:12px; font-size:16px; font-weight:700; cursor:pointer; text-decoration:none;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        전화 예약
+      </a>
+    </div>
+    <div id="phoneNumberDisplay" style="display:none; width:100%; padding:14px; background:#f5f5f5; border-radius:12px; text-align:center;">
+      <p style="font-size:13px; color:#888; margin-bottom:4px;">전화 예약</p>
+      <p style="font-size:22px; font-weight:900; color:#1a1a1a; letter-spacing:0.5px;">010-6415-1175</p>
+    </div>
+    <button onclick="closeReservePopup()" style="margin-top:14px; padding:8px 28px; background:transparent; color:#999; border:1px solid #ddd; border-radius:100px; font-size:14px; font-weight:600; cursor:pointer;">닫기</button>
   </div>
 </div>
 
 <script>
   function handleCall(e) {
-    if (window.innerWidth >= 768 && !('ontouchstart' in window)) {
-      e.preventDefault();
-      document.getElementById('phonePopup').style.display = 'flex';
-      return false;
-    }
-    return true;
+    e.preventDefault();
+    var popup = document.getElementById('reservePopup');
+    var isDesktop = window.innerWidth >= 768 && !('ontouchstart' in window);
+    document.getElementById('phoneSection').style.display = isDesktop ? 'none' : '';
+    document.getElementById('phoneNumberDisplay').style.display = isDesktop ? 'block' : 'none';
+    popup.style.display = 'flex';
+    return false;
   }
-  document.getElementById('phonePopup').addEventListener('click', function(e) {
-    if (e.target === this) this.style.display = 'none';
+  function closeReservePopup() {
+    document.getElementById('reservePopup').style.display = 'none';
+  }
+  document.getElementById('reservePopup').addEventListener('click', function(e) {
+    if (e.target === this) closeReservePopup();
   });
 
   /* ── Scroll animations ── */
